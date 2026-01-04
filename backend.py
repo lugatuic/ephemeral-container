@@ -3,6 +3,8 @@ from proxmoxer import ProxmoxAPI
 import subprocess, time, pymysql
 import subprocess
 import os
+import hashlib
+import datetime
 from dotenv import load_dotenv
 
 app = FastAPI()
@@ -41,6 +43,10 @@ async def launch(request: Request):
     netid = data.get("netid", "").strip()
     cid = proxmox.cluster.nextid.get()
     print(f"Next available LXC ID: {cid}")
+    salt = os.urandom(32);
+    salt_hex = salt.hex().upper()
+    salted_passwd = container_passwd + salt_hex
+    hashed_password = hashlib.sha256(salted_passwd.encode('utf-8')).digest()
 
     try:
         proxmox.nodes(NODE).lxc(TEMPLATE_ID).clone.post(
@@ -49,10 +55,10 @@ async def launch(request: Request):
             full=1,
          )
 
-        time.sleep(10)
+        time.sleep(20)
         proxmox.nodes(NODE).lxc(cid).status.start.post()
 
-        time.sleep(10)
+        time.sleep(20)
 
         status = proxmox.nodes(NODE).lxc(cid).interfaces.get()
 
@@ -75,23 +81,53 @@ async def launch(request: Request):
         )
 
         cur = conn.cursor()
+        
 
+        # this sql query will specify the connection name. Its not the hostname but just the connection name shown in guacamole which will map to ssh connection
+        # further info : https://guacamole.apache.org/doc/gug/jdbc-auth-schema.html#connections-and-parameters
         cur.execute("INSERT INTO guacamole_connection (connection_name, protocol) VALUES (%s, 'ssh')", (f"{netid}-{cid}",))
 
+        # this is connection id returned from entering the connection name
         conn_id = cur.lastrowid
 
+        # now we will map the connection id to the ssh connection.
+        # for further info of params : https://guacamole.apache.org/doc/gug/configuring-guacamole.html#ssh-authentication
         cur.executemany(
             "INSERT INTO guacamole_connection_parameter (connection_id, parameter_name, parameter_value) VALUES (%s,%s,%s)",
             [(conn_id,'hostname',ip),(conn_id,'port','22'),(conn_id,'username',lxc_user),(conn_id,'password',container_passwd)]
         )
 
-        cur.execute("INSERT INTO guacamole_entity (name, type) VALUES (%s, 'USER')", (netid,))
+        cur.execute("SELECT entity_id FROM guacamole_entity WHERE name = %s" , (netid,))
 
-        entity_id = cur.lastrowid
+        entitycheck = cur.fetchone()
+        
+        if(entitycheck is None):
+            cur.execute("INSERT INTO guacamole_entity (name, type) VALUES (%s, 'USER')", (netid,))
+            entity_id = cur.lastrowid
+        else:
+            entity_id = entitycheck[0]   
 
-        cur.execute("INSERT INTO guacamole_connection_permission (entity_id, connection_id , permission) VALUES (%s, %s , 'READ')", (entity_id , netid ,))
+        cur.execute("SELECT user_id FROM guacamole_user WHERE entity_id = %s" , (entity_id,))
+
+        usercheck = cur.fetchone()
+
+        if(usercheck is None):
+            cur.execute("INSERT INTO guacamole_user (entity_id , password_salt , password_hash , password_date) VALUES (%s , %s , %s , %s)", (entity_id , salt , hashed_password , datetime.datetime.now()))
+            user_id = cur.lastrowid
+        else:
+            user_id = usercheck[0]
+
+        print("till here its good")
+        
+        print("netid is %s connection id is %s and entity id is %s" , entity_id , conn_id , entity_id)
+
+        cur.execute("INSERT INTO guacamole_connection_permission (entity_id, connection_id , permission) VALUES (%s, %s , 'READ')", (entity_id , conn_id ,))
+
+        print("check here")
 
         conn.commit(); conn.close()
+
+        print("what bout this one")
 
         return {
             "success": True,
