@@ -5,6 +5,7 @@ import subprocess
 import os
 import hashlib
 import datetime
+import base64
 from dotenv import load_dotenv
 
 app = FastAPI()
@@ -129,13 +130,19 @@ async def launch(request: Request):
 
         print("what bout this one")
 
+        conn_id_list = [str(conn_id) , "c" , "mysql"]
+        conn_id_concat = '\0'.join(conn_id_list)
+        based_conn_id_encoded = base64.b64encode(conn_id_concat.encode('utf-8'))
+        based_conn_id = based_conn_id_encoded.decode('utf-8')
+        print("based conn_id is" , based_conn_id)
+
         return {
             "success": True,
             "container_id": cid,
             "ip": ip,
             "user": netid,
             "password": container_passwd,
-            "url": f"http://{MYSQL_HOSTNAME}:8080/guacamole/#/client/{conn_id}",
+            "url": f"http://{MYSQL_HOSTNAME}:8080/guacamole/#/client/{based_conn_id}",
             "expires_in": TTL
         }
 
