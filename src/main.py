@@ -3,7 +3,7 @@ from services import guacamole as guac
 from fastapi import FastAPI , Request
 import time
 import base64
-import configs as config
+from configs import config
 
 app = FastAPI()
 
@@ -26,7 +26,6 @@ async def launch(request: Request):
         print(ip)
         print("check here")
         conn_id = guac.fill_sql(netid,cid,ip)
-
         conn_id_list = [str(conn_id) , "c" , "mysql"]
         conn_id_concat = '\0'.join(conn_id_list)
         based_conn_id_encoded = base64.b64encode(conn_id_concat.encode('utf-8'))
