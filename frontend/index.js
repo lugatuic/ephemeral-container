@@ -10,6 +10,7 @@ function launch() {
 
   button.disabled = true;
   button.textContent = "Launching..."
+  document.getElementById("status").textContent = "";
 
   fetch("http://doom.acmuic.org/api/launch", {
     method: "POST",
@@ -27,18 +28,18 @@ function launch() {
   })
   .then(data => {
     if (data.success) {
-      document.getElementById("status").innerHTML = `<span id="success-label">[SUCCESS]</span> Environment launched. <a id="link" "href="${data.url}" target="_blank">Click here to access.</a>`;
+      document.getElementById("status").innerHTML = `<span id="success-label">[SUCCESS]</span> Environment launched. <a id="link" href="${data.url}" target="_blank">Click here to access.</a>`;
     } else {
       document.getElementById("status").textContent = "Error: " + data.message;
     }
   })
   .catch(err => {
-    document.getElementById("status").textContent = "Something went wrong.";
+    document.getElementById("status").innerHTML = `<span id="fail-label">[FAILED]</span> Something went wrong. Please try again.`;
     button.textContent = "Launch"
     console.error(err);
   })
   .finally(() => {
     button.disabled = false;
-    button.textContent = "Activate";
+    button.textContent = "Launch";
   });
 }

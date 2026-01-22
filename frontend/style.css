@@ -232,6 +232,10 @@ elements many not appear or unexpected behavior.
   color: rgb(0, 155, 0)
 }
 
+#fail-label{
+  color: rgb(241, 31, 31);
+}
+
 #link{
   color: lightblue;
 }
