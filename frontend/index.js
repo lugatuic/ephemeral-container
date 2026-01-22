@@ -11,7 +11,7 @@ function launch() {
   button.disabled = true;
   button.textContent = "Launching..."
 
-  fetch("doom.acmuic.org/api/launch", {
+  fetch("http://doom.acmuic.org/api/launch", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -22,12 +22,12 @@ function launch() {
     if(!res.ok){
         throw new Error(`HTTP error: ${res.status}`);
     } else{
-        res.json();
+         return res.json();
     }
   })
   .then(data => {
     if (data.success) {
-      document.getElementById("status").innerHTML = `Environment launched. <a href="${data.url}" target="_blank">Click here to access</a>`;
+      document.getElementById("status").innerHTML = `<span id="success-label">[SUCCESS]</span> Environment launched. <a id="link" "href="${data.url}" target="_blank">Click here to access.</a>`;
     } else {
       document.getElementById("status").textContent = "Error: " + data.message;
     }

@@ -151,7 +151,13 @@
   }
 }
 
-/*LOGIN CARD*/
+/*BODY*/
+
+/*
+Due to the nature of the background, Ensure that all elements
+are to be nested within the parent container. Otherwise the
+elements many not appear or unexpected behavior.
+*/
 
 .parent-container{
   font-family: sans-serif;
@@ -164,6 +170,8 @@
   justify-content: center;
   min-height: 100vh;
 }
+
+/*LOGIN CARD*/
 
 #title{
   text-align: center;
@@ -181,7 +189,12 @@
   border-bottom: 2px solid grey;
   margin-top: 5px;
   font-size: 1em;
-  
+  transition: 1.0;
+}
+
+#NetID:focus{
+  transition: 1.0;
+  border-bottom: 2px solid rgb(199, 199, 199);
 }
 
 #terminal-image{
@@ -211,11 +224,22 @@
   background-color: rgb(208, 75, 91);
 }
 
-
-
 #uic-logo{
   width: 30px;
 }
+
+#success-label{
+  color: rgb(0, 155, 0)
+}
+
+#link{
+  color: lightblue;
+}
+
+#link:hover{
+  color: rgb(187, 234, 250);
+}
+
 
 .login-card{
   border: 3px solid rgb(135, 135, 135);
