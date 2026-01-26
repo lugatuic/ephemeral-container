@@ -17,8 +17,10 @@ async def launch(request: Request):
     try:
         data =await request.json()
         netid = data.get("netid","").strip()
+        template_id = data.get("template_id")
+        print("template id is " , template_id)
         cid = prox.get_cid()
-        prox.provision_lxc(cid,netid)
+        prox.provision_lxc(cid,netid,template_id)
         time.sleep(20)
         print(prox.start_lxc(cid))
         time.sleep(20)

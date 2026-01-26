@@ -15,10 +15,10 @@ def get_cid():
     return cid
         
     
-def provision_lxc(cid, netid):
+def provision_lxc(cid, netid, TEMPLATE_ID):
     try:
         print("we are in provision")
-        proxmox.nodes(config.NODE).lxc(config.TEMPLATE_ID).clone.post(
+        proxmox.nodes(config.NODE).lxc(TEMPLATE_ID).clone.post(
             newid=cid,
             hostname=f"{netid}-{cid}",
             full=1,
