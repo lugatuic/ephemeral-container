@@ -19,9 +19,9 @@ async def launch(request: Request):
         netid = data.get("netid","").strip()
         template_id = data.get("template_id")
         print("template id is " , template_id)
-        cid = prox.get_cid()
+        cid = prox.get_cid()   # issue over here with concurrent request
         prox.provision_lxc(cid,netid,template_id)
-        time.sleep(20)
+        time.sleep(20) # issue over here with concurrent request
         print(prox.start_lxc(cid))
         time.sleep(20)
         ip = prox.get_ip(cid)

@@ -1,6 +1,10 @@
 from proxmoxer import ProxmoxAPI
 from configs import config
 import time
+import threading
+
+counter = 300
+lock = threading.Lock()
 
 proxmox=ProxmoxAPI(
 config.PROXMOX_HOST,
@@ -10,9 +14,22 @@ token_value=config.PROXMOX_TOKEN_VALUE,
 verify_ssl=False
     )
 
+
 def get_cid():
-    cid= proxmox.cluster.nextid.get()
-    return cid
+    with lock:
+        global counter
+        # try and catch block so in case by any chance if there is any application reload
+        # causing counter to reload it doesnt cause any double counter error as if counter id already
+        # exists in proxmox
+        while(True):
+            try:
+                status = proxmox.nodes(config.NODE).lxc(counter).status.current.get()
+                counter = counter+1
+            except:
+                cid = counter
+                print("cid is " , cid)
+                counter+=1
+                return cid
         
     
 def provision_lxc(cid, netid, TEMPLATE_ID):
@@ -49,7 +66,8 @@ def get_ip(cid):
         
 
 
-# testing the functions here
+if __name__ == "__main__":
+    print("Hello, World!")
 # cid = get_cid()
 # print(cid)
 # print(provision_lxc(cid , "testing"))
