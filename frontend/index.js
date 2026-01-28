@@ -35,6 +35,7 @@ function launch() {
   })
   .catch(err => {
     document.getElementById("status").innerHTML = `<span id="fail-label">[FAILED]</span> Something went wrong. Please try again.`;
+    button.disabled = false;
     button.textContent = "Launch"
     console.error(err);
   })
@@ -43,3 +44,54 @@ function launch() {
     button.textContent = "Launch";
   });
 }
+
+
+
+//TO DO: API call that returns all available types of containers for users
+
+//Everything is hardcoded until otherwise.
+let container_types = ["Default Debian Linux", "Linux Week 2026"];
+let container_id = [];
+
+//[Key: Name of Container, Value: value for launch]
+const containers = new Map();
+containers.set("Default Debian Linux", 100);
+containers.set("Linux Week 2026", 200);
+
+let selected_id = -1; //Nothing selected. 
+
+const dropdownButton = document.getElementById("launch-options-dropdown");
+const dropdownList = document.getElementById("dropdown-list");
+const selectedValue = document.getElementById('selectedValue');
+
+//Populate containers within the dropdown.
+containers.forEach((id, name) => {
+    const div = document.createElement('div');
+    div.className = 'dropdown-item';
+    div.textContent = name;
+    div.onclick = () => selectItem(item);
+    dropdownList.appendChild(div);
+    console.log("Container Made")
+});
+
+//Toggle dropdown
+dropdownButton.onclick = () => {
+  dropdownList.classList.toggle('open'); 
+  console.log("Dropdown Opened");
+}
+
+//Selecting a item from the dropbox
+function selectItem(item){
+  dropdownButton.textContent = item;
+  selectedValue.textContent = item;
+  selected_id = containers.get(`${selectedValue.textContent}`);
+  dropdownList.classList.remove('open');
+}
+
+document.addEventListener('click', (e) => {
+    if(!e.target.closest('.launch-options-dropdown')){
+      dropdownList.classList.remove('open');
+    }
+});
+
+

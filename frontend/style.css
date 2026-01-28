@@ -251,7 +251,7 @@ elements many not appear or unexpected behavior.
   background-color: hsla(0, 0%, 0%, 0.829);
   margin: auto;
   width: 600px;
-  height: 350px;
+  height: 400px;
 }
 
 .login-flexbox{
@@ -262,3 +262,33 @@ elements many not appear or unexpected behavior.
   gap: 50px;
 }
 
+/* CONTAINER DROPDOWN*/
+
+#launch-options-dropdown{
+  position: relative;
+}
+
+.dropdown-list {
+  z-index: 2;
+  max-height: 200px;
+  border: 1px solid grey;
+}
+
+.dropdown-list.open{
+  display: block;
+  position: absolute;
+}
+
+.dropdown-item{
+  color: black;
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1 px solid grey;
+  background-color: white;
+  transition: 0.1s;
+}
+
+.dropdown-item:hover{
+  background-color: lightgrey;
+  transition: 0.1s;
+}
