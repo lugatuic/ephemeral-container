@@ -13,6 +13,7 @@ ephemeral containers for events
 
 ## TODOS
 
+- [ ] Add await on some coroutines to make code concurrent
 - [ ] Solve issue of TOCTOU race condition
 - [ ] Add Test Cases
 - [ ] Delete lxc after TTL
