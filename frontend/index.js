@@ -60,7 +60,7 @@ containers.set("Linux Week 2026", 200);
 
 let selected_id = -1; //Nothing selected. 
 
-const dropdownButton = document.getElementById("launch-options-dropdown");
+const dropdownButton = document.getElementById("dropdown-button");
 const dropdownList = document.getElementById("dropdown-list");
 const selectedValue = document.getElementById('selectedValue');
 
@@ -71,12 +71,16 @@ containers.forEach((id, name) => {
     div.textContent = name;
     div.onclick = () => selectItem(item);
     dropdownList.appendChild(div);
-    console.log("Container Made")
+    console.log("Container Made");
 });
 
 //Toggle dropdown
 dropdownButton.onclick = () => {
+  console.log('Clicked to open toggle.');
+  console.log('Before:', dropdownList.classList);
   dropdownList.classList.toggle('open'); 
+  console.log('After:', dropdownList.classList); 
+  dropdownButton.classList.toggle('close');
   console.log("Dropdown Opened");
 }
 
@@ -88,9 +92,11 @@ function selectItem(item){
   dropdownList.classList.remove('open');
 }
 
+//TO FIX THIS FROM AUTO CLOSING
 document.addEventListener('click', (e) => {
     if(!e.target.closest('.launch-options-dropdown')){
-      dropdownList.classList.remove('open');
+      //dropdownList.classList.remove('open');
+      dropdownButton.classList.remove('close');
     }
 });
 

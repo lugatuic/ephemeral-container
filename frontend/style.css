@@ -264,31 +264,51 @@ elements many not appear or unexpected behavior.
 
 /* CONTAINER DROPDOWN*/
 
+
 #launch-options-dropdown{
   position: relative;
 }
 
-.dropdown-list {
-  z-index: 2;
-  max-height: 200px;
-  border: 1px solid grey;
+.dropdown-button{
+  display: block;
+}
+
+.dropdown-button.close{
+  display: none;
+}
+
+/* BASE RULE FIRST */
+.dropdown-list{
+  display: none;
+}
+
+/* MODIFIER RULES AFTER */
+.dropdown-list.close {
+  display: none;
 }
 
 .dropdown-list.open{
   display: block;
   position: absolute;
+  z-index: 2;
+  max-height: 200px;
+  border: 1px solid grey;
+  overflow-y: auto;
 }
 
 .dropdown-item{
+  display: block;
   color: black;
   padding: 10px;
   cursor: pointer;
-  border-bottom: 1 px solid grey;
   background-color: white;
   transition: 0.1s;
+  font-size: 0.9em;
+  border-bottom: 2px solid grey;
 }
 
 .dropdown-item:hover{
   background-color: lightgrey;
+  border-bottom: 2px solid rgb(57, 57, 57);
   transition: 0.1s;
 }
