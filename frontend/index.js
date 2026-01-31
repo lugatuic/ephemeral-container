@@ -64,6 +64,8 @@ const dropdownButton = document.getElementById("dropdown-button");
 const dropdownList = document.getElementById("dropdown-list");
 const selectedValue = document.getElementById('selectedValue');
 
+let isActive = false;
+
 //Populate containers within the dropdown.
 containers.forEach((id, name) => {
     const div = document.createElement('div');
@@ -75,13 +77,10 @@ containers.forEach((id, name) => {
 });
 
 //Toggle dropdown
-dropdownButton.onclick = () => {
-  console.log('Clicked to open toggle.');
-  console.log('Before:', dropdownList.classList);
+dropdownButton.onclick = (e) => {
+  e.stopImmediatePropagation(); //Prevent immediate triggering of the closing.
   dropdownList.classList.toggle('open'); 
-  console.log('After:', dropdownList.classList); 
   dropdownButton.classList.toggle('close');
-  console.log("Dropdown Opened");
 }
 
 //Selecting a item from the dropbox
@@ -92,10 +91,9 @@ function selectItem(item){
   dropdownList.classList.remove('open');
 }
 
-//TO FIX THIS FROM AUTO CLOSING
 document.addEventListener('click', (e) => {
-    if(!e.target.closest('.launch-options-dropdown')){
-      //dropdownList.classList.remove('open');
+    if(!dropdownList.contains(e.target)){
+      dropdownList.classList.remove('open');
       dropdownButton.classList.remove('close');
     }
 });

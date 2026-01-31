@@ -259,7 +259,12 @@ elements many not appear or unexpected behavior.
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  height: 250px;
   gap: 50px;
+}
+
+.login-items{
+  height: 250px;
 }
 
 /* CONTAINER DROPDOWN*/
@@ -271,6 +276,13 @@ elements many not appear or unexpected behavior.
 
 .dropdown-button{
   display: block;
+  margin-top: 10px;
+  width: 177px;
+  background-color: white;
+  border: none;
+  font-size: 0.9em;
+  padding: 5px;
+  border: 2px solid grey;
 }
 
 .dropdown-button.close{
@@ -280,6 +292,7 @@ elements many not appear or unexpected behavior.
 /* BASE RULE FIRST */
 .dropdown-list{
   display: none;
+  border: 2px solid red;
 }
 
 /* MODIFIER RULES AFTER */
@@ -292,18 +305,23 @@ elements many not appear or unexpected behavior.
   position: absolute;
   z-index: 2;
   max-height: 200px;
+  width: 175px;
+  max-width: 175px;
   border: 1px solid grey;
   overflow-y: auto;
+  text-align: center;
+  
 }
 
 .dropdown-item{
   display: block;
   color: black;
-  padding: 10px;
+  padding: 5px;
   cursor: pointer;
   background-color: white;
   transition: 0.1s;
   font-size: 0.9em;
+  
   border-bottom: 2px solid grey;
 }
 
