@@ -4,6 +4,7 @@ from fastapi import FastAPI , Request
 import time
 import base64
 from configs import config
+import asyncio
 
 app = FastAPI()
 
@@ -17,12 +18,14 @@ async def launch(request: Request):
     try:
         data =await request.json()
         netid = data.get("netid","").strip()
-        cid = prox.get_cid()
-        prox.provision_lxc(cid,netid)
-        time.sleep(20)
-        print(prox.start_lxc(cid))
-        time.sleep(20)
-        ip = prox.get_ip(cid)
+        template_id = data.get("template_id")
+        print("template id is " , template_id)
+        cid = prox.get_cid()   # issue over here with concurrent request
+        await prox.provision_lxc(cid,netid,template_id)
+        # await asyncio.sleep(10) # issue over here with concurrent request
+        await prox.start_lxc(cid)
+        # await asyncio.sleep(20)
+        ip = await prox.get_ip(cid)
         print(ip)
         print("check here")
         conn_id = guac.fill_sql(netid,cid,ip)
