@@ -1,0 +1,364 @@
+/*BACKGROUND*/
+
+body{
+  overflow: hidden;
+}
+
+.background{
+  position: fixed;
+  width: 100%;
+  z-index: -1;
+}
+ 
+ .white {
+  height: 100vh;
+}
+.white:before {
+  z-index: 1000;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60vh;
+  background-image: linear-gradient(-180deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
+}
+.white:after {
+  z-index: 1000;
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20vh;
+  background-image: linear-gradient(0deg, #EBEBEB 0%, rgba(235, 235, 235, 0) 100%);
+}
+
+.squares {
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  overflow: hidden;
+}
+
+.square {
+  -webkit-animation: squares 9.5s linear infinite;
+          animation: squares 9.5s linear infinite;
+  align-self: flex-end;
+  width: 1em;
+  height: 1em;
+  transform: translateY(100%);
+  background: #ebebeb;
+}
+.square:nth-child(2) {
+  height: 1.5em;
+  width: 3em;
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
+  -webkit-animation-duration: 17s;
+          animation-duration: 17s;
+  -webkit-filter: blur(5px);
+  filter: blur(3px);
+}
+.square:nth-child(3) {
+  height: 2em;
+  width: 1em;
+  -webkit-animation-delay: 1.5s;
+          animation-delay: 1.5s;
+  -webkit-animation-duration: 8s;
+          animation-duration: 8s;
+  -webkit-filter: blur();
+  filter: blur(3px);
+}
+.square:nth-child(4) {
+  height: 1em;
+  width: 1.5em;
+  -webkit-animation-delay: 0.5s;
+          animation-delay: 0.5s;
+  -webkit-filter: blur(3px);
+  -webkit-animation-duration: 13s;
+          animation-duration: 13s;
+          filter: blur(3px);
+}
+.square:nth-child(5) {
+  height: 1.25em;
+  width: 2em;
+  -webkit-animation-delay: 4s;
+          animation-delay: 4s;
+  -webkit-filter: blur(2px);
+  -webkit-animation-duration: 11s;
+          animation-duration: 11s;
+          filter: blur(3px);
+}
+.square:nth-child(6) {
+  height: 2.5em;
+  width: 2em;
+  -webkit-animation-delay: 2s;
+          animation-delay: 2s;
+  -webkit-filter: blur(1px);
+  -webkit-animation-duration: 9s;
+          animation-duration: 9s;
+          filter: blur(3px);
+}
+.square:nth-child(7) {
+  height: 5em;
+  width: 2em;
+  -webkit-filter: blur(2.5px);
+  -webkit-animation-duration: 12s;
+          animation-duration: 12s;
+          filter: blur(3px);
+}
+.square:nth-child(8) {
+  height: 1em;
+  width: 3em;
+  -webkit-animation-delay: 5s;
+          animation-delay: 5s;
+  -webkit-filter: blur(6px);
+  -webkit-animation-duration: 18s;
+          animation-duration: 18s;
+          filter: blur(3px);
+}
+.square:nth-child(9) {
+  height: 1.5em;
+  width: 2em;
+  -webkit-filter: blur(0.5px);
+  -webkit-animation-duration: 9s;
+          animation-duration: 9s;
+          filter: blur(3px);
+}
+.square:nth-child(9) {
+  height: 3em;
+  width: 2.4em;
+  -webkit-animation-delay: 6s;
+          animation-delay: 6s;
+  -webkit-filter: blur(0.5px);
+  -webkit-animation-duration: 12s;
+          animation-duration: 12s;
+          filter: blur(3px);
+}
+
+@-webkit-keyframes squares {
+  from {
+    transform: translateY(100%) rotate(-50deg);
+  }
+  to {
+    transform: translateY(calc(-100vh + -100%)) rotate(20deg);
+  }
+}
+
+@keyframes squares {
+  from {
+    transform: translateY(100%) rotate(-50deg);
+  }
+  to {
+    transform: translateY(calc(-100vh + -100%)) rotate(20deg);
+  }
+}
+
+/*BODY*/
+
+/*
+Due to the nature of the background, Ensure that all elements
+are to be nested within the parent container. Otherwise the
+elements many not appear or unexpected behavior.
+*/
+
+.parent-container{
+  font-family: sans-serif;
+  font-weight: 200;
+  color: white;
+  z-index: 1;
+  margin: 0px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/*LOGIN CARD*/
+
+#title{
+  text-align: center;
+  margin-top: 45px;
+}
+
+#NetID{
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+  border-bottom: 2px solid grey;
+  margin-top: 5px;
+  font-size: 1.1em;
+  transition: 1.0;
+}
+
+#NetID:focus{
+  transition: 1.0;
+  border-bottom: 2px solid rgb(199, 199, 199);
+}
+
+#terminal-image{
+  height: 200px;
+}
+
+#login-button{
+  background-color: rgba(212, 31, 52);
+  border: 2px solid hsl(353, 77%, 33%);
+  outline: none;
+  color: white;
+  margin-top: 10px;
+  height: 30px;
+  border-radius: 5px;
+  padding: 0 5px;
+  text-align: center;
+  line-height: normal;
+  transition: 0.3s;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-family: Noto Sans;
+  width: 100px;
+  height: 35px;
+}
+
+#login-button:hover{
+  transition: 0.1s;
+  background-color: rgb(208, 75, 91);
+}
+
+#logo{
+  width: 75px;
+}
+
+#success-label{
+  color: rgb(0, 155, 0)
+}
+
+#fail-label{
+  color: rgb(241, 31, 31);
+}
+
+#link{
+  color: lightblue;
+}
+
+#link:hover{
+  color: rgb(187, 234, 250);
+}
+
+
+.login-card{
+  border: 3px solid rgb(135, 135, 135);
+  border-radius: 15px;
+  background-color: rgba(14, 34, 42);
+  margin: auto;
+  width: 650px;
+  height: 400px;
+}
+
+.login-flexbox{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+  gap: 50px;
+}
+
+.login-items{
+  height: 250px;
+}
+
+/* CONTAINER DROPDOWN*/
+
+#dropdown-icon {
+  height: 24px;
+  width: 24px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%) rotate(0deg);
+  pointer-events: none;
+  transition: 0.2s;
+}
+
+#dropdown-icon.active {
+  transform: translateY(-50%) rotate(180deg);
+  transition: 0.2s;
+}
+
+/*dropdown container*/
+#launch-options-dropdown {
+  position: relative;
+}
+
+.dropdown-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  height: 40px;
+  width: 200px;
+  background-color: white;
+  border: 2px solid grey;
+  font-size: 0.9em;
+  padding: 5px 10px;
+  color: black;
+  text-align: left;
+  position: relative;
+  padding-right: 35px;
+}
+
+.dropdown-list{
+  display: none;
+}
+
+.dropdown-list.close {
+  display: none;
+}
+
+.dropdown-list.open{
+  display: block;
+  position: absolute;
+  z-index: 2;
+  max-height: 200px;
+  width: 200px;
+  overflow-y: auto;
+  text-align: center;
+  border-bottom: none;
+}
+
+.dropdown-item{
+  display: block;
+  color: black;
+  padding: 6px;
+  cursor: pointer;
+  background-color: white;
+  transition: 0.1s;
+  font-size: 0.9em;
+  font-weight: 500;
+  padding: 10px 10px;
+  border: 2px solid grey;
+}
+
+.dropdown-item:hover{
+  background-color: lightgrey;
+  transition: 0.1s;
+}
+
+/*Shameless plug*/
+
+.shameless-plug {
+  text-decoration: none;
+  color: rgb(66, 171, 206);
+}
+
+.shameless-plug:hover {
+  text-decoration: none;
+  color: rgb(58, 206, 255);
+}
