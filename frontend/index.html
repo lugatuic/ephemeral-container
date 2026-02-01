@@ -31,22 +31,22 @@
             <h2 id="title" style="font-family: Noto Sans; font-weight: 350;">Ephemeral Container Login</h2>
             <div class="login-flexbox">
                 <div class="login-items">
-                    <img src="./assets/uic.PNG" id="uic-logo">
-                    <h3>UIC NetID:</h3>
+                    <img src="./assets/logo.png" id="logo">
+                    <h2>UIC NetID:</h2>
                     <input type="text" id="NetID" placeholder="Enter your NetID...">
                     <div id="launch-options-dropdown">
-                        <button class="dropdown-button" id="dropdown-button">Select a Container</button>
+                        <button class="dropdown-button" id="dropdown-button"><span id="button-text">Select a Container</span><img src="./assets/dropdown.svg" id="dropdown-icon" ></button>
                         <div class="dropdown-list" id="dropdown-list">
                             <!--Dropdown icons will appear here-->
                         </div>
-                        <p class="selected-value">Selected: None</p>
                     </div>
                     <button id="login-button" onclick="launch()">Launch</button>
                 </div>
                 <img src="./assets/bash.png" id="terminal-image">
             </div>
-            <p id="status" style="margin-left: 75px;"></p>
+            <p id="status" style="text-align: center;"></p>
         </div>
+        <p style="color: black; text-align: center; position: relative; font-size: 0.7em">Beta Version. Created by <a class="shameless-plug" href="https://github.com/hmodi51">Harish Modi</a> and <a class="shameless-plug" href="https://github.com/mgorski760">Marcin Gorski</a>.</p>
     </div>
 
     <style>
