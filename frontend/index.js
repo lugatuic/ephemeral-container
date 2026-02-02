@@ -5,7 +5,7 @@ function launch() {
   const button = document.getElementById("login-button");
   netid.trim();
 
-  if(template_id == -1 || netid == null){
+  if(template_id == -1 || !netid){
     document.getElementById("status").innerHTML = `<span id="fail-label">[FAILED]</span> Please enter your NetID and select a container.`;
     return;
   }
@@ -14,7 +14,7 @@ function launch() {
   button.textContent = "Launching..."
   document.getElementById("status").textContent = "";
 
-  fetch("http://doom.acmuic.org/api/launch", {
+  fetch("/api/launch", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -52,9 +52,7 @@ function launch() {
 
 //[Key: Name of Container, Value: value for launch]
 const containers = new Map();
-containers.set("Default Debian Linux", 100);
-containers.set("Linux Week 2026", 200);
-containers.set("TEST ID=142", 142);
+containers.set("Default Debian Linux", 142);
 let template_id = -1; //Nothing selected. 
 
 const dropdownButton = document.getElementById("dropdown-button");
