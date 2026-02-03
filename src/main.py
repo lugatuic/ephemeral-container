@@ -41,7 +41,7 @@ async def launch(request: Request):
             "ip": ip,
             "user": netid,
             "password": config.container_passwd,
-            "url": f"http://{config.MYSQL_HOSTNAME}:8080/guacamole/#/client/{based_conn_id}",
+            "url": f"http://{config.MYSQL_HOSTNAME}/guacamole/#/client/{based_conn_id}",
         }
     
 

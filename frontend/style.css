@@ -204,8 +204,10 @@ elements many not appear or unexpected behavior.
 }
 
 #terminal-image{
-  height: 200px;
+  height: 220px;
+
 }
+
 
 #login-button{
   background-color: rgba(212, 31, 52);
@@ -232,7 +234,7 @@ elements many not appear or unexpected behavior.
 }
 
 #logo{
-  width: 75px;
+  width: 35px;
 }
 
 #success-label{
@@ -267,11 +269,13 @@ elements many not appear or unexpected behavior.
   justify-content: center;
   align-items: center;
   height: 250px;
-  gap: 50px;
+  gap: 45px;
 }
 
 .login-items{
   height: 250px;
+  margin-left: 60px;
+  
 }
 
 /* CONTAINER DROPDOWN*/
@@ -312,6 +316,10 @@ elements many not appear or unexpected behavior.
   text-align: left;
   position: relative;
   padding-right: 35px;
+}
+
+.dropdown-button.active {
+  border: 2px solid rgb(186, 17, 17);
 }
 
 .dropdown-list{
