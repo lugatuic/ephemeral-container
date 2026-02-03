@@ -74,6 +74,7 @@ containers.forEach((id, name) => {
 dropdownButton.onclick = (e) => {
   e.stopImmediatePropagation(); //Prevent immediate triggering of the closing.
   dropdownList.classList.toggle('open'); 
+  dropdownButton.classList.toggle('active');
   dropdownIcon.classList.toggle('active');
 }
 
@@ -83,12 +84,14 @@ function selectItem(name){
   template_id = containers.get(name);
   dropdownList.classList.remove('open');
   dropdownIcon.classList.remove('active');
+  dropdownButton.classList.remove('active');
 }
 
 document.addEventListener('click', (e) => {
     if(!dropdownList.contains(e.target)){
       dropdownList.classList.remove('open');
       dropdownIcon.classList.remove('active');
+      dropdownButton.classList.remove('active');
     }
 });
 
